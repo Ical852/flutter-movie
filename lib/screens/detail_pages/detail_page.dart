@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movlix/blocs/cubits/movie_cast_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_detail_cubit.dart';
+import 'package:movlix/blocs/cubits/movie_recommendations_cubit.dart';
 import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/screens/detail_pages/partials/backdrop_content.dart';
 import 'package:movlix/screens/detail_pages/partials/backdrop_img.dart';
@@ -10,6 +12,7 @@ import 'package:movlix/screens/detail_pages/partials/synopsis.dart';
 import 'package:movlix/screens/detail_pages/partials/trailer.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/view_models/detail/detail_view_model.dart';
+import 'package:movlix/widgets/row_slide_content.dart';
 
 // ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
@@ -27,6 +30,8 @@ class _DetailPageState extends State<DetailPage> {
   void initState() {
     super.initState();
     detailVM.getDetail(this.widget.detail.id.toString());
+    detailVM.getRecommendations(this.widget.detail.id.toString());
+    detailVM.getCasts(this.widget.detail.id.toString());
   }
 
   @override
@@ -45,11 +50,48 @@ class _DetailPageState extends State<DetailPage> {
             SizedBox(
               height: 20,
             ),
-            Cast(),
+            BlocConsumer<MovieCastCubit, MovieCastState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is MovieCastLoading) {
+                  return Container(
+                      height: 200,
+                      width: double.infinity,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: whiteColor,
+                        ),
+                      ));
+                }
+                if (state is MovieCastSuccess) {
+                  return Cast(state: state.cast);
+                }
+                return Container();
+              },
+            ),
             SizedBox(
               height: 20,
             ),
-            // RowSlideContent(images: dummyList, title: "More Like This"),
+            BlocConsumer<MovieRecommendationsCubit, MovieRecommendationsState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is MovieRecommendationsLoading) {
+                  return Container(
+                      height: 200,
+                      width: double.infinity,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: whiteColor,
+                        ),
+                      ));
+                }
+                if (state is MovieRecommendationsSuccess) {
+                  return RowSlideContent(
+                      state: state.recommendations, title: "More Like This");
+                }
+                return Container();
+              },
+            ),
             SizedBox(
               height: 172,
             )
@@ -79,9 +121,9 @@ class _DetailPageState extends State<DetailPage> {
               return SingleChildScrollView(
                 child: Stack(
                   children: [
-                    BackdropImg(),
+                    BackdropImg(detail: state.detail,),
                     BackdropLayer(),
-                    BackdropContent(),
+                    BackdropContent(detail: state.detail,),
                     MainContent()
                   ],
                 ),

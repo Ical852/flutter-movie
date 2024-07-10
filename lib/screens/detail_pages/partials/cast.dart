@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:movlix/models/cast_response.dart';
 import 'package:movlix/screens/detail_pages/widgets/cast_card.dart';
-import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
 
+// ignore: must_be_immutable
 class Cast extends StatelessWidget {
-  const Cast({super.key});
+  CastResponse state;
+  Cast({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -25,9 +27,9 @@ class Cast extends StatelessWidget {
             child: ListView.builder(
               padding: EdgeInsets.only(left: 20, right: 8),
               scrollDirection: Axis.horizontal,
-              itemCount: dummyList.length,
+              itemCount: state.cast!.length,
               itemBuilder: (context, index) {
-                return CastCard();
+                return CastCard(cast: state.cast![index],);
               },
             ),
           )

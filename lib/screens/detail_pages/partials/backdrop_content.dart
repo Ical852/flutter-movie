@@ -1,12 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/models/detail_response.dart';
 import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/buttons/mini_button_custom.dart';
 import 'package:movlix/widgets/image_custom.dart';
 
+// ignore: must_be_immutable
 class BackdropContent extends StatelessWidget {
-  const BackdropContent({super.key});
+  DetailResponse detail;
+  BackdropContent({super.key, required this.detail});
 
   @override
   Widget build(BuildContext context) {
@@ -19,14 +22,17 @@ class BackdropContent extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            ImageCustom(
-              margin: EdgeInsets.only(
-                top: 32,
-                left: 28
+            GestureDetector(
+              onTap: () => Navigator.pop(context),
+              child: ImageCustom(
+                margin: EdgeInsets.only(
+                  top: 32,
+                  left: 28
+                ),
+                height: 28, 
+                width: 16,
+                image: AssetImage(getIC("ic_back.png")),
               ),
-              height: 28, 
-              width: 16,
-              image: AssetImage(getIC("ic_back.png")),
             ),
             Expanded(
               child: Row(
@@ -40,7 +46,7 @@ class BackdropContent extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           Text(
-                            "Justice Leage Zack Snyder",
+                            detail.title!,
                             style: mega.white.semiBold,
                             maxLines: 2,
                           ),
@@ -83,7 +89,7 @@ class BackdropContent extends StatelessWidget {
                     child: ImageCustom(
                       height: 170,
                       width: (getWH(context, "width") / 2) - 47.5,
-                      image: AssetImage(dummyImg),
+                      image: NetworkImage(getPosterUrl(detail.posterPath!)),
                       fit: BoxFit.cover,
                       margin: EdgeInsets.only(
                         right: 20,
