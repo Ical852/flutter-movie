@@ -1,8 +1,8 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/now_showing_card.dart';
 import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
-import 'package:movlix/widgets/image_custom.dart';
 
 class NowShowing extends StatelessWidget {
   const NowShowing({super.key});
@@ -29,21 +29,7 @@ class NowShowing extends StatelessWidget {
               return CarouselSlider.builder(
                 itemCount: dummyList.length,
                 itemBuilder: (context, index, realIndex) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(horizontal: 10.0),
-                    child: AspectRatio(
-                      aspectRatio: 177 / 242,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(10),
-                        child: ImageCustom(
-                          fit: BoxFit.cover,
-                          height: itemHeight,
-                          width: deviceWidth * 0.7,
-                          image: AssetImage(dummyList[index]),
-                        ),
-                      ),
-                    ),
-                  );
+                  return NowShowingCard(deviceWidth: deviceWidth, itemHeight: itemHeight, image: dummyList[index]);
                 },
                 options: CarouselOptions(
                   height: enlargedHeight,
