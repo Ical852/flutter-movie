@@ -1,11 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/coming_soon_card.dart';
-import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
 
+// ignore: must_be_immutable
 class ComingSoonMovie extends StatelessWidget {
-  const ComingSoonMovie({super.key});
+  String title;
+  FetchResponse state;
+  ComingSoonMovie({super.key, required this.title, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class ComingSoonMovie extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "Coming Soon",
+            title,
             style: mega.white.semiBold,
           ),
           CarouselSlider(
@@ -22,12 +25,9 @@ class ComingSoonMovie extends StatelessWidget {
               enableInfiniteScroll: true,
               viewportFraction: 1,
             ),
-            items: dummyList
-                .map((image) => ComingSoonCard(
-                      title: "Justice League",
-                      image: image,
-                    ))
-                .toList(),
+            items: state.results!.map((detail) => ComingSoonCard(
+              detail: detail,
+            )).toList(),
           ),
         ],
       ),

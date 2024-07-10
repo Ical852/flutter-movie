@@ -129,3 +129,7 @@ void showConfirm(
     }
   });
 }
+
+String getPosterUrl(String url) {
+  return "https://image.tmdb.org/t/p/original/$url";
+}

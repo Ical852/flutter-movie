@@ -72,7 +72,10 @@ class _MainPageState extends State<MainPage> with WidgetsBindingObserver {
             return Container(
               color: primary,
               child: Stack(
-                children: [ContentRender(state), BottomNavRender(state)],
+                children: [
+                  ContentRender(state),
+                  BottomNavRender(state)
+                ],
               ),
             );
           },

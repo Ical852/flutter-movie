@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 
+var baseUrl = "https://api.themoviedb.org/3/";
+var token = "Bearer eyJhbGciOiJIUzI1NiJ9.eyJhdWQiOiI5NjdjMWFkNzMyOTEwMDkwNzNmNGUxYzAxZGNkZjBmZSIsIm5iZiI6MTcyMDUzMjU0MS43MDI3MTEsInN1YiI6IjY2OGQxYzQ4NDczZDkzNDljYzBkMTg3YSIsInNjb3BlcyI6WyJhcGlfcmVhZCJdLCJ2ZXJzaW9uIjoxfQ.dCGQWFOGozbowBTDOfayg6zA87zXaOUdup67DnNJ_Go";
+
 double xSmallSize = 10;
 double smallSize = 12;
 double regularSize = 14;

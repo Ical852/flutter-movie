@@ -1,35 +1,25 @@
 import 'package:flutter/material.dart';
 import 'package:carousel_slider/carousel_slider.dart';
-import 'package:movlix/functions/global_func.dart';
-import 'package:movlix/shared/dummies.dart';
-import 'package:movlix/widgets/image_custom.dart';
+import 'package:movlix/models/fetch_response.dart';
+import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/top_rated_card.dart';
 
+// ignore: must_be_immutable
 class TopRatedMovie extends StatelessWidget {
-  const TopRatedMovie({super.key});
+  FetchResponse state;
+  TopRatedMovie({super.key, required this.state});
 
   @override
   Widget build(BuildContext context) {
     return Container(
       child: CarouselSlider(
         options: CarouselOptions(
-          enlargeCenterPage:
-              false, // Set to false to avoid enlarging center item
+          enlargeCenterPage: false,
           enableInfiniteScroll: true,
-          viewportFraction:
-              0.83, // Set this value to see a part of next/previous item
+          viewportFraction: 0.83,
         ),
-        items: dummyList
-            .map((image) => Container(
-                  child: Center(
-                      child: ImageCustom(
-                    fit: BoxFit.cover,
-                    width: getWH(context, "width") - 84,
-                    height: 220,
-                    image: AssetImage(image),
-                    borderRadius: BorderRadius.circular(12),
-                  )),
-                ))
-            .toList(),
+        items: state.results!.map((image) {
+          return TopRatedCard(detail: image);
+        }).toList(),
       ),
     );
   }

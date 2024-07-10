@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
-import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/now_showing_badge.dart';
-import 'package:movlix/shared/constants.dart';
+import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class NowShowingCard extends StatelessWidget {
+  Results detail;
   double itemHeight, deviceWidth;
-  String image;
   NowShowingCard({
     super.key,
     required this.deviceWidth,
     required this.itemHeight,
-    required this.image
+    required this.detail
   });
 
   @override
@@ -27,7 +27,7 @@ class NowShowingCard extends StatelessWidget {
             fit: BoxFit.cover,
             height: itemHeight,
             width: deviceWidth * 0.7,
-            image: AssetImage(image),
+            image: NetworkImage(getPosterUrl(detail.posterPath!)),
             child: Stack(
               children: [
                 Align(
@@ -35,11 +35,16 @@ class NowShowingCard extends StatelessWidget {
                   child: Container(
                     height: 150,
                     decoration: BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                        bottomLeft: Radius.circular(12),
+                        bottomRight: Radius.circular(12),
+                      ),
                       gradient: LinearGradient(
                         begin: Alignment.topCenter,
                         end: Alignment.bottomCenter,
                         colors: [
-                          whiteColor.withOpacity(0),
+                          Color(0xff000000).withOpacity(0.05),
+                          Color(0xff000000).withOpacity(0.15),
                           Color(0xff000000).withOpacity(0.25),
                           Color(0xff000000).withOpacity(0.45),
                           Color(0xff000000).withOpacity(0.65),
@@ -56,28 +61,12 @@ class NowShowingCard extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.end,
                     children: [
                       Text(
-                        "Justice League",
+                        detail.title!,
                         style: base.white.semiBold,
                       ),
                       SizedBox(
                         height: 8,
                       ),
-                      Row(
-                        children: [
-                          NowShowingBadge(),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          NowShowingBadge(),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          NowShowingBadge(),
-                          SizedBox(
-                            width: 10,
-                          ),
-                        ],
-                      )
                     ],
                   ),
                 ),

@@ -1,0 +1,78 @@
+import 'package:flutter/material.dart';
+import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/models/fetch_response.dart';
+import 'package:movlix/screens/detail_pages/detail_page.dart';
+import 'package:movlix/shared/text_styles.dart';
+import 'package:movlix/widgets/image_custom.dart';
+
+// ignore: must_be_immutable
+class TopRatedCard extends StatelessWidget {
+  Results detail;
+  TopRatedCard({super.key, required this.detail});
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DetailPage(detail)),
+        );
+      },
+      child: Container(
+        child: Center(
+          child: ImageCustom(
+            fit: BoxFit.cover,
+            width: getWH(context, "width") - 84,
+            height: 220,
+            image: NetworkImage(getPosterUrl(detail.posterPath!)),
+            borderRadius: BorderRadius.circular(12),
+            child: Container(
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                          Color(0xff000000).withOpacity(0.05),
+                          Color(0xff000000).withOpacity(0.15),
+                          Color(0xff000000).withOpacity(0.25),
+                            Color(0xff000000).withOpacity(0.45),
+                            Color(0xff000000).withOpacity(0.65),
+                            Color(0xff000000).withOpacity(0.85),
+                          ]
+                        )
+                      ),
+                    ),
+                  ),
+                  Container(
+                    margin: EdgeInsets.only(left: 16, bottom: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          detail.title!,
+                          style: base.white.semiBold,
+                          maxLines: 1,
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          )
+        ),
+      ),
+    );
+  }
+}

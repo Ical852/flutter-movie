@@ -1,11 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
+import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/now_showing_card.dart';
-import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
 
+// ignore: must_be_immutable
 class NowShowing extends StatelessWidget {
-  const NowShowing({super.key});
+  FetchResponse state;
+  String title;
+  NowShowing({super.key, required this.title, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -13,7 +16,7 @@ class NowShowing extends StatelessWidget {
       child: Column(
         children: [
           Text(
-            "Now Showing",
+            title,
             style: mega.white.semiBold,
           ),
           SizedBox(
@@ -27,9 +30,9 @@ class NowShowing extends StatelessWidget {
               double enlargedHeight = itemHeight * 1.2;
 
               return CarouselSlider.builder(
-                itemCount: dummyList.length,
+                itemCount: state.results!.length,
                 itemBuilder: (context, index, realIndex) {
-                  return NowShowingCard(deviceWidth: deviceWidth, itemHeight: itemHeight, image: dummyList[index]);
+                  return NowShowingCard(deviceWidth: deviceWidth, itemHeight: itemHeight, detail: state.results![index]);
                 },
                 options: CarouselOptions(
                   height: enlargedHeight,
