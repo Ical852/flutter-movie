@@ -1,5 +1,7 @@
 import 'package:movlix/functions/global_func.dart';
 
+String dummyImg = getIM("im_sample.png");
+
 List<String> dummyList = [
   getIM("im_sample.png"),
   getIM("im_sample.png"),

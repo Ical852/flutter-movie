@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movlix/screens/detail_pages/detail_page.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/coming_soon_movie.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/header_user.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/now_showing_movie.dart';
@@ -27,7 +28,13 @@ class _HomeTabState extends State<HomeTab> {
           SizedBox(
             height: 16,
           ),
-          SearchBox(),
+          GestureDetector(
+            onTap: () {
+              Navigator.push(
+                context, MaterialPageRoute(builder: (context) => DetailPage())
+              );
+            },
+            child: SearchBox()),
           SizedBox(
             height: 24,
           ),
