@@ -92,7 +92,7 @@ void showDrawer(BuildContext context, double height, Widget content) {
       return Container(
         height: height,
         decoration: BoxDecoration(
-          color: whiteColor,
+          color: primary,
           borderRadius: BorderRadius.only(
             topLeft: Radius.circular(32), topRight: Radius.circular(32)
           )
