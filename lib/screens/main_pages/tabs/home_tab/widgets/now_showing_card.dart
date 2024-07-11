@@ -9,11 +9,14 @@ import 'package:movlix/widgets/image_custom.dart';
 class NowShowingCard extends StatelessWidget {
   Results detail;
   double itemHeight, deviceWidth;
+  bool isTv;
+
   NowShowingCard({
     super.key,
     required this.deviceWidth,
     required this.itemHeight,
-    required this.detail
+    required this.detail,
+    this.isTv = false
   });
 
   @override
@@ -21,7 +24,12 @@ class NowShowingCard extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DetailPage(detail)),
+          context, MaterialPageRoute(
+            builder: (context) => DetailPage(
+              detail: detail,
+              isTv: isTv,
+            )
+          ),
         );
       },
       child: Container(
@@ -68,7 +76,7 @@ class NowShowingCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          detail.title!,
+                          getTitle(detail),
                           style: base.white.semiBold,
                         ),
                         SizedBox(

@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/date_symbol_data_local.dart';
+import 'package:movlix/blocs/cubits/all_trending_today_cubit.dart';
 import 'package:movlix/blocs/cubits/coming_soon_movie_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_cast_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_detail_cubit.dart';
@@ -9,9 +10,20 @@ import 'package:movlix/blocs/cubits/movie_recommendations_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_trailer_cubit.dart';
 import 'package:movlix/blocs/cubits/now_playing_movie_cubit.dart';
 import 'package:movlix/blocs/cubits/page_cubit.dart';
+import 'package:movlix/blocs/cubits/popular_tv_cubit.dart';
 import 'package:movlix/blocs/cubits/search_movie_cubit.dart';
+import 'package:movlix/blocs/cubits/search_tv_cubit.dart';
 import 'package:movlix/blocs/cubits/top_rated_movie_cubit.dart';
 import 'package:movlix/blocs/cubits/popular_movie_cubit.dart';
+import 'package:movlix/blocs/cubits/top_rated_tv_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_movie_today_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_movie_week_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_tv_today_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_tv_week_cubit.dart';
+import 'package:movlix/blocs/cubits/tv_cast_cubit.dart';
+import 'package:movlix/blocs/cubits/tv_detail_cubit.dart';
+import 'package:movlix/blocs/cubits/tv_recommendations_cubit.dart';
+import 'package:movlix/blocs/cubits/tv_trailer_cubit.dart';
 import 'package:movlix/screens/main_pages/main_page.dart';
 import 'package:movlix/screens/splash_page.dart';
 import 'package:movlix/shared/constants.dart';
@@ -37,10 +49,22 @@ class MyApp extends StatelessWidget {
         BlocProvider(create: (context) => ComingSoonMovieCubit()),
         BlocProvider(create: (context) => NowPlayingMovieCubit()),
         BlocProvider(create: (context) => SearchMovieCubit()),
+        BlocProvider(create: (context) => SearchTvCubit()),
         BlocProvider(create: (context) => MovieDetailCubit()),
         BlocProvider(create: (context) => MovieRecommendationsCubit()),
+        BlocProvider(create: (context) => TvRecommendationsCubit()),
         BlocProvider(create: (context) => MovieCastCubit()),
         BlocProvider(create: (context) => MovieTrailerCubit()),
+        BlocProvider(create: (context) => TrendingMovieWeekCubit()),
+        BlocProvider(create: (context) => TrendingTvWeekCubit()),
+        BlocProvider(create: (context) => PopularTvCubit()),
+        BlocProvider(create: (context) => TrendingMovieTodayCubit()),
+        BlocProvider(create: (context) => TrendingTvTodayCubit()),
+        BlocProvider(create: (context) => TopRatedTvCubit()),
+        BlocProvider(create: (context) => AllTrendingTodayCubit()),
+        BlocProvider(create: (context) => TvDetailCubit()),
+        BlocProvider(create: (context) => TvCastCubit()),
+        BlocProvider(create: (context) => TvTrailerCubit()),
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,

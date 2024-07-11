@@ -42,6 +42,7 @@ class Results {
   String? posterPath;
   String? releaseDate;
   String? title;
+  String? name;
   bool? video;
   double? voteAverage;
   int? voteCount;
@@ -58,6 +59,7 @@ class Results {
       this.posterPath,
       this.releaseDate,
       this.title,
+      this.name,
       this.video,
       this.voteAverage,
       this.voteCount});
@@ -74,6 +76,7 @@ class Results {
     posterPath = json['poster_path'];
     releaseDate = json['release_date'];
     title = json['title'];
+    name = json['name'];
     video = json['video'];
     voteAverage = json['vote_average'];
     voteCount = json['vote_count'];
@@ -92,6 +95,7 @@ class Results {
     data['poster_path'] = this.posterPath;
     data['release_date'] = this.releaseDate;
     data['title'] = this.title;
+    data['name'] = this.name;
     data['video'] = this.video;
     data['vote_average'] = this.voteAverage;
     data['vote_count'] = this.voteCount;

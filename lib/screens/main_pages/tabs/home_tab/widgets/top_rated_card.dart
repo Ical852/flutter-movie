@@ -7,15 +7,26 @@ import 'package:movlix/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class TopRatedCard extends StatelessWidget {
+  bool isTv;
   Results detail;
-  TopRatedCard({super.key, required this.detail});
+
+  TopRatedCard({
+    super.key,
+    required this.detail,
+    this.isTv = false
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DetailPage(detail)),
+          context, MaterialPageRoute(
+            builder: (context) => DetailPage(
+              detail: detail,
+              isTv: isTv,
+            )
+          ),
         );
       },
       child: Container(
@@ -60,7 +71,7 @@ class TopRatedCard extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.end,
                       children: [
                         Text(
-                          detail.title!,
+                          getTitle(detail),
                           style: base.white.semiBold,
                           maxLines: 1,
                         ),

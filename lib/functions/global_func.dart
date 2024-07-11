@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:intl/intl.dart' as intl;
@@ -162,4 +163,10 @@ String dateFormat(String date) {
 
   String formattedDate = intl.DateFormat("MMMM dd, yyyy", "id_ID").format(parsedDate);
   return formattedDate;
+}
+
+String getTitle(Results detail) {
+  if (detail.title != null) return detail.title!;
+  if (detail.name != null) return detail.name!;
+  return "-";
 }

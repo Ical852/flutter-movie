@@ -100,7 +100,9 @@ class _ExploreTabState extends State<ExploreTab> {
                       onTap: (){
                         Navigator.push(
                           context, MaterialPageRoute(
-                            builder: (context) => DetailPage(state.search.results![index])
+                            builder: (context) => DetailPage(
+                              detail: state.search.results![index],
+                            )
                           ),
                         );
                       },

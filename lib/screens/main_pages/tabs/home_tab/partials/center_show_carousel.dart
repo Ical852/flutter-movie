@@ -5,10 +5,10 @@ import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/now_showing_card
 import 'package:movlix/shared/text_styles.dart';
 
 // ignore: must_be_immutable
-class NowShowing extends StatelessWidget {
+class CenterShowCarousel extends StatelessWidget {
   FetchResponse state;
   String title;
-  NowShowing({super.key, required this.title, required this.state});
+  CenterShowCarousel({super.key, required this.title, required this.state});
 
   @override
   Widget build(BuildContext context) {

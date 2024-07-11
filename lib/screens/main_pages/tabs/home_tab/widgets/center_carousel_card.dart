@@ -6,16 +6,27 @@ import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
-class ComingSoonCard extends StatelessWidget {
+class CenterCarouselCard extends StatelessWidget {
   Results detail;
-  ComingSoonCard({super.key, required this.detail});
+  bool isTv;
+
+  CenterCarouselCard({
+    super.key,
+    required this.detail,
+    this.isTv = false,
+  });
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
         Navigator.push(
-          context, MaterialPageRoute(builder: (context) => DetailPage(detail)),
+          context, MaterialPageRoute(
+            builder: (context) => DetailPage(
+              detail: detail,
+              isTv: isTv,
+            )
+          ),
         );
       },
       child: Container(
@@ -53,7 +64,7 @@ class ComingSoonCard extends StatelessWidget {
               Container(
                 margin: EdgeInsets.only(left: 18, top: 12),
                 child: Text(
-                  detail.title!,
+                  getTitle(detail),
                   style: regular.white.semiBold,
                 ),
               ),

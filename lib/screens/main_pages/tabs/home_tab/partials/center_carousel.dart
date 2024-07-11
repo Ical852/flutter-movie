@@ -1,14 +1,14 @@
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:flutter/material.dart';
 import 'package:movlix/models/fetch_response.dart';
-import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/coming_soon_card.dart';
+import 'package:movlix/screens/main_pages/tabs/home_tab/widgets/center_carousel_card.dart';
 import 'package:movlix/shared/text_styles.dart';
 
 // ignore: must_be_immutable
-class ComingSoonMovie extends StatelessWidget {
+class CenterCarousel extends StatelessWidget {
   String title;
   FetchResponse state;
-  ComingSoonMovie({super.key, required this.title, required this.state});
+  CenterCarousel({super.key, required this.title, required this.state});
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class ComingSoonMovie extends StatelessWidget {
               enableInfiniteScroll: true,
               viewportFraction: 1,
             ),
-            items: state.results!.map((detail) => ComingSoonCard(
+            items: state.results!.map((detail) => CenterCarouselCard(
               detail: detail,
             )).toList(),
           ),

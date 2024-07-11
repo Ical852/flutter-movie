@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movlix/blocs/cubits/all_trending_today_cubit.dart';
 import 'package:movlix/blocs/cubits/coming_soon_movie_cubit.dart';
 import 'package:movlix/blocs/cubits/now_playing_movie_cubit.dart';
 import 'package:movlix/blocs/cubits/popular_movie_cubit.dart';
-import 'package:movlix/blocs/cubits/search_movie_cubit.dart';
+import 'package:movlix/blocs/cubits/popular_tv_cubit.dart';
 import 'package:movlix/blocs/cubits/top_rated_movie_cubit.dart';
+import 'package:movlix/blocs/cubits/top_rated_tv_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_movie_today_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_movie_week_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_tv_today_cubit.dart';
+import 'package:movlix/blocs/cubits/trending_tv_week_cubit.dart';
 import 'package:movlix/functions/global_func.dart';
 
 class HomeViewModel {
@@ -46,11 +52,59 @@ class HomeViewModel {
     }
   }
 
-  void searchMovie(String search) {
+  void getTrendingMovieWeek() {
     try {
-      context.read<SearchMovieCubit>().searchMovie(search);
+      context.read<TrendingMovieWeekCubit>().getTrendingMovieWeek();
     } catch (e) {
-      showGLobalAlert("danger", "Failed to get search", context);
+      showGLobalAlert("danger", "Failed to get trending movie week", context);
+    }
+  }
+
+  void getTrendingTvWeek() {
+    try {
+      context.read<TrendingTvWeekCubit>().getTrendingTvWeek();
+    } catch (e) {
+      showGLobalAlert("danger", "Failed to get trending tv week", context);
+    }
+  }
+
+  void getPopularTv() {
+    try {
+      context.read<PopularTvCubit>().getPopularTv();
+    } catch (e) {
+      showGLobalAlert("danger", "Failed to get popular tv", context);
+    }
+  }
+
+  void getTrendingMovieToday() {
+    try {
+      context.read<TrendingMovieTodayCubit>().getTrendingMovieToday();
+    } catch (e) {
+      showGLobalAlert("danger", "Failed to get trending movie today", context);
+    }
+  }
+
+  void getTrendingTvToday() {
+    try {
+      context.read<TrendingTvTodayCubit>().getTrendingTvToday();
+    } catch (e) {
+      showGLobalAlert("danger", "Failed to get trending tv today", context);
+    }
+  }
+
+  void getTopRatedTv() {
+    try {
+      context.read<TopRatedTvCubit>().getTopRatedTv();
+    } catch (e) {
+      showGLobalAlert("danger", "Failed to get top rated tv", context);
+    }
+  }
+
+  void getAllTrendingToday() {
+    try {
+      context.read<AllTrendingTodayCubit>().getAllTrendingToday();
+    } catch (e) {
+      showGLobalAlert("danger", "Failed to get all trending today", context);
     }
   }
 }

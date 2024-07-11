@@ -7,7 +7,7 @@ import 'package:movlix/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class RowSlideContent extends StatelessWidget {
-  bool isDetail;
+  bool isDetail, isTv;
   FetchResponse state;
   String title;
 
@@ -15,7 +15,8 @@ class RowSlideContent extends StatelessWidget {
     super.key,
     required this.title,
     required this.state,
-    this.isDetail = false
+    this.isDetail = false,
+    this.isTv = false
   });
 
   @override
@@ -54,11 +55,21 @@ class RowSlideContent extends StatelessWidget {
                     if (isDetail) {
                       Navigator.pushReplacement(
                         context,
-                        MaterialPageRoute(builder: (context) => DetailPage(state.results![index])),
+                        MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                            detail: state.results![index],
+                            isTv: isTv,
+                          )
+                        ),
                       );
                     } else {
                       Navigator.push(
-                        context, MaterialPageRoute(builder: (context) => DetailPage(state.results![index])),
+                        context, MaterialPageRoute(
+                          builder: (context) => DetailPage(
+                            detail: state.results![index], 
+                            isTv: isTv,
+                          )
+                        ),
                       );
                     }
                   },

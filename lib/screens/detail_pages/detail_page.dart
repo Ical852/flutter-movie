@@ -19,8 +19,9 @@ import 'package:movlix/widgets/row_slide_content.dart';
 
 // ignore: must_be_immutable
 class DetailPage extends StatefulWidget {
+  bool isTv;
   Results detail;
-  DetailPage(this.detail);
+  DetailPage({required this.detail, this.isTv = false});
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -32,10 +33,17 @@ class _DetailPageState extends State<DetailPage> {
   @override
   void initState() {
     super.initState();
-    detailVM.getDetail(this.widget.detail.id.toString());
-    detailVM.getRecommendations(this.widget.detail.id.toString());
-    detailVM.getCasts(this.widget.detail.id.toString());
-    detailVM.getTrailer(this.widget.detail.id.toString());
+    if (this.widget.isTv) {
+      detailVM.getDetailTv(this.widget.detail.id.toString());
+      detailVM.getRecommendationsTv(this.widget.detail.id.toString());
+      detailVM.getCastsTv(this.widget.detail.id.toString());
+      detailVM.getTrailerTv(this.widget.detail.id.toString());
+    } else {
+      detailVM.getDetail(this.widget.detail.id.toString());
+      detailVM.getRecommendations(this.widget.detail.id.toString());
+      detailVM.getCasts(this.widget.detail.id.toString());
+      detailVM.getTrailer(this.widget.detail.id.toString());
+    }
   }
 
   @override

@@ -39,8 +39,12 @@ class ImageCustom extends StatelessWidget {
             width: width,
             height: height,
             decoration: BoxDecoration(
-                image: DecorationImage(image: imageProvider, fit: fit),
-                borderRadius: borderRadius),
+              image: DecorationImage(
+                image: imageProvider,
+                fit: fit
+              ),
+              borderRadius: borderRadius
+            ),
           );
         },
         placeholder: (context, url) => CircularProgressIndicator(
