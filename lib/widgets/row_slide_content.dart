@@ -7,9 +7,10 @@ import 'package:movlix/widgets/image_custom.dart';
 
 // ignore: must_be_immutable
 class RowSlideContent extends StatelessWidget {
+  bool isDetail;
   FetchResponse state;
   String title;
-  RowSlideContent({super.key, required this.title, required this.state});
+  RowSlideContent({super.key, required this.title, required this.state, this.isDetail = false});
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +45,16 @@ class RowSlideContent extends StatelessWidget {
 
                 return GestureDetector(
                   onTap: () {
-                    Navigator.push(
-                      context, MaterialPageRoute(builder: (context) => DetailPage(state.results![index])),
-                    );
+                    if (isDetail) {
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(builder: (context) => DetailPage(state.results![index])),
+                      );
+                    } else {
+                      Navigator.push(
+                        context, MaterialPageRoute(builder: (context) => DetailPage(state.results![index])),
+                      );
+                    }
                   },
                   child: ImageCustom(
                     margin: EdgeInsets.only(right: 12),

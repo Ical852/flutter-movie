@@ -65,7 +65,7 @@ class _DetailPageState extends State<DetailPage> {
                       ));
                 }
                 if (state is MovieTrailerSuccess) {
-                  return Trailer(trailer: state.trailer,);
+                  return Trailer(trailer: state.trailer, detail: detail,);
                 }
                 return Container();
               },
@@ -110,7 +110,9 @@ class _DetailPageState extends State<DetailPage> {
                 }
                 if (state is MovieRecommendationsSuccess) {
                   return RowSlideContent(
-                      state: state.recommendations, title: "More Like This");
+                    isDetail: true,
+                      state: state.recommendations, title: "More Like This"
+                  );
                 }
                 return Container();
               },

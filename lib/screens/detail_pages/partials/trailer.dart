@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/models/detail_response.dart';
 import 'package:movlix/models/trailer_response.dart';
 import 'package:movlix/shared/constants.dart';
-import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/image_custom.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 // ignore: must_be_immutable
 class Trailer extends StatefulWidget {
+  DetailResponse detail;
   TrailerResponse trailer;
-  Trailer({super.key, required this.trailer});
+  Trailer({super.key, required this.trailer, required this.detail});
 
   @override
   State<Trailer> createState() => _TrailerState();
@@ -81,18 +82,18 @@ class _TrailerState extends State<Trailer> {
           ),
           SizedBox(height: 10,),
           Container(
-            height: 160,
+            height: 250,
             child: Stack(
               children: [
                 ImageCustom(
-                  height: 160, 
+                  height: 250, 
                   width: getWH(context, "width") - 40, 
-                  image: AssetImage(dummyImg), 
+                  image: NetworkImage(getPosterUrl(this.widget.detail.backdropPath!)), 
                   fit: BoxFit.cover,
                   borderRadius: BorderRadius.circular(8),
                 ),
                 Container(
-                  height: 160,
+                  height: 250,
                   width: getWH(context, "width") - 40,
                   color: blackColor.withOpacity(0.5),
                 ),
