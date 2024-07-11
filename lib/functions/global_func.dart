@@ -56,9 +56,10 @@ String getIM(String image) {
 
 BoxShadow getBoxShadow(double show) {
   return BoxShadow(
-      color: blackColor.withOpacity(show / 10),
-      blurRadius: show,
-      offset: Offset(0, show));
+    color: blackColor.withOpacity(show / 10),
+    blurRadius: show,
+    offset: Offset(0, show)
+  );
 }
 
 void showGLobalAlert(type, text, context) {
@@ -71,7 +72,10 @@ void showGLobalAlert(type, text, context) {
     ),
     backgroundColor: getColorType(type),
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.vertical(top: Radius.circular(8))),
+      borderRadius: BorderRadius.vertical(
+        top: Radius.circular(8)
+      )
+    ),
   ));
 }
 
@@ -79,23 +83,26 @@ void showDrawer(BuildContext context, double height, Widget content) {
   showModalBottomSheet<void>(
     context: context,
     shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(32), topRight: Radius.circular(32))),
+      borderRadius: BorderRadius.only(
+        topLeft: Radius.circular(32), topRight: Radius.circular(32)
+      )
+    ),
     builder: (BuildContext context) {
       return Container(
         height: height,
         decoration: BoxDecoration(
-            color: whiteColor,
-            borderRadius: BorderRadius.only(
-                topLeft: Radius.circular(32), topRight: Radius.circular(32))),
+          color: whiteColor,
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(32), topRight: Radius.circular(32)
+          )
+        ),
         child: content,
       );
     },
   );
 }
 
-void showConfirm(
-    BuildContext context, String confirm, Function onYes, onCancel) {
+void showConfirm(BuildContext context, String confirm, Function onYes, onCancel) {
   showDialog(
     context: context,
     builder: (BuildContext context) {
@@ -132,4 +139,27 @@ void showConfirm(
 
 String getPosterUrl(String url) {
   return "https://image.tmdb.org/t/p/original/$url";
+}
+
+String convertMinutesToHourMinute(int totalMinutes) {
+  int hours = totalMinutes ~/ 60;
+  int minutes = totalMinutes % 60;
+
+  String hourStr = hours > 1 ? "hours" : "hour";
+  String minuteStr = minutes > 1 ? "minutes" : "minute";
+
+  if (hours > 0 && minutes > 0) {
+    return "$hours $hourStr $minutes $minuteStr";
+  } else if (hours > 0) {
+    return "$hours $hourStr";
+  } else {
+    return "$minutes $minuteStr";
+  }
+}
+
+String dateFormat(String date) {
+  DateTime parsedDate = DateTime.parse(date);
+
+  String formattedDate = intl.DateFormat("MMMM dd, yyyy", "id_ID").format(parsedDate);
+  return formattedDate;
 }

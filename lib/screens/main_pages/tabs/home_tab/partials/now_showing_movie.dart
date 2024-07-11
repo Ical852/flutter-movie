@@ -32,7 +32,11 @@ class NowShowing extends StatelessWidget {
               return CarouselSlider.builder(
                 itemCount: state.results!.length,
                 itemBuilder: (context, index, realIndex) {
-                  return NowShowingCard(deviceWidth: deviceWidth, itemHeight: itemHeight, detail: state.results![index]);
+                  return NowShowingCard(
+                    deviceWidth: deviceWidth,
+                    itemHeight: itemHeight,
+                    detail: state.results![index]
+                  );
                 },
                 options: CarouselOptions(
                   height: enlargedHeight,

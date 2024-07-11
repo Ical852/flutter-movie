@@ -3,6 +3,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movlix/blocs/cubits/movie_cast_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_detail_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_recommendations_cubit.dart';
+import 'package:movlix/blocs/cubits/movie_trailer_cubit.dart';
+import 'package:movlix/models/detail_response.dart';
 import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/screens/detail_pages/partials/backdrop_content.dart';
 import 'package:movlix/screens/detail_pages/partials/backdrop_img.dart';
@@ -32,21 +34,42 @@ class _DetailPageState extends State<DetailPage> {
     detailVM.getDetail(this.widget.detail.id.toString());
     detailVM.getRecommendations(this.widget.detail.id.toString());
     detailVM.getCasts(this.widget.detail.id.toString());
+    detailVM.getTrailer(this.widget.detail.id.toString());
   }
 
   @override
   Widget build(BuildContext context) {
-    Widget MainContent() {
+    Widget MainContent(DetailResponse detail) {
       return Container(
         margin: EdgeInsets.only(top: 380),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Synopsis(),
+            Synopsis(
+              detail: detail,
+            ),
             SizedBox(
               height: 20,
             ),
-            Trailer(),
+            BlocConsumer<MovieTrailerCubit, MovieTrailerState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                if (state is MovieTrailerLoading) {
+                  return Container(
+                      height: 200,
+                      width: double.infinity,
+                      child: Center(
+                        child: CircularProgressIndicator(
+                          color: whiteColor,
+                        ),
+                      ));
+                }
+                if (state is MovieTrailerSuccess) {
+                  return Trailer(trailer: state.trailer,);
+                }
+                return Container();
+              },
+            ),
             SizedBox(
               height: 20,
             ),
@@ -121,10 +144,14 @@ class _DetailPageState extends State<DetailPage> {
               return SingleChildScrollView(
                 child: Stack(
                   children: [
-                    BackdropImg(detail: state.detail,),
+                    BackdropImg(
+                      detail: state.detail,
+                    ),
                     BackdropLayer(),
-                    BackdropContent(detail: state.detail,),
-                    MainContent()
+                    BackdropContent(
+                      detail: state.detail,
+                    ),
+                    MainContent(state.detail)
                   ],
                 ),
               );

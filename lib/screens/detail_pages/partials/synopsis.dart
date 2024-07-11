@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/models/detail_response.dart';
 import 'package:movlix/screens/detail_pages/widgets/genre_badge.dart';
 import 'package:movlix/screens/detail_pages/widgets/line.dart';
 import 'package:movlix/shared/text_styles.dart';
 
+// ignore: must_be_immutable
 class Synopsis extends StatelessWidget {
-  const Synopsis({super.key});
+  DetailResponse detail;
+  Synopsis({super.key, required this.detail});
 
   @override
   Widget build(BuildContext context) {
@@ -18,6 +22,7 @@ class Synopsis extends StatelessWidget {
           Line(),
           SizedBox(height: 16,),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -28,7 +33,7 @@ class Synopsis extends StatelessWidget {
                   ),
                   SizedBox(height: 12,),
                   Text(
-                    "December 9, 2017",
+                    dateFormat(detail.releaseDate!),
                     style: regular.grey.regularF,
                   )
                 ],
@@ -43,12 +48,15 @@ class Synopsis extends StatelessWidget {
                       style: base.white.semiBold,
                     ),
                     SizedBox(height: 8,),
-                    Row(
-                      children: [
-                        GenreBadge(),
-                        SizedBox(width: 12,),
-                        GenreBadge(),
-                      ],
+                    Wrap(
+                      children: detail.genres!.map((genre){
+                        return Container(
+                          margin: EdgeInsets.only(right: 12, bottom: 12),
+                          child: GenreBadge(
+                            title: genre.name!
+                          )
+                        );
+                      }).toList(),
                     )
                   ],
                 ),
@@ -64,7 +72,7 @@ class Synopsis extends StatelessWidget {
           ),
           SizedBox(height: 10,),
           Text(
-            "The Asgardian Loki encounters the Other, the leader of an extraterrestrial race known as the Chitauri. In exchange for retrieving the Tesseract...",
+            detail.overview!,
             style: regular.grey.regularF,
             maxLines: 5,
           )

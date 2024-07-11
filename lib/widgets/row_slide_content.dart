@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movlix/functions/global_func.dart';
 import 'package:movlix/models/fetch_response.dart';
+import 'package:movlix/screens/detail_pages/detail_page.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/image_custom.dart';
 
@@ -34,13 +35,27 @@ class RowSlideContent extends StatelessWidget {
               scrollDirection: Axis.horizontal,
               itemBuilder: (context, index) {
                 var image = state.results![index].posterPath;
-                return ImageCustom(
-                  margin: EdgeInsets.only(right: 12),
-                  height: 200,
-                  width: 150,
-                  fit: BoxFit.cover,
-                  image: NetworkImage(getPosterUrl(image!)),
-                  borderRadius: BorderRadius.circular(12),
+                ImageProvider getImg() {
+                  if (image != null) {
+                    return NetworkImage(getPosterUrl(image));
+                  }
+                  return AssetImage(getIM("im_user.png"));
+                }
+
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.push(
+                      context, MaterialPageRoute(builder: (context) => DetailPage(state.results![index])),
+                    );
+                  },
+                  child: ImageCustom(
+                    margin: EdgeInsets.only(right: 12),
+                    height: 200,
+                    width: 150,
+                    fit: BoxFit.cover,
+                    image: getImg(),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
                 );
               }
             ),

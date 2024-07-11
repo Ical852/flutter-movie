@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movlix/blocs/cubits/search_movie_cubit.dart';
 import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/screens/detail_pages/detail_page.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/view_models/main/explore_view_model.dart';
@@ -93,19 +94,28 @@ class _ExploreTabState extends State<ExploreTab> {
                     double itemWidth = getWH(context, "width") / 3 - 20;
                     double itemHeight = itemWidth * 105 / 160;
 
-                    return Container(
-                      child: AspectRatio(
-                        aspectRatio: 105 / 160,
-                        child: ClipRRect(
-                          borderRadius: BorderRadius.circular(4),
-                          child: ImageCustom(
-                            width: itemWidth,
-                            height: itemHeight,
-                            fit: BoxFit.cover,
-                            image: NetworkImage(
-                              getPosterUrl(
-                                state.search.results![index].posterPath!
-                              )
+                    return GestureDetector(
+                      onTap: (){
+                        Navigator.push(
+                          context, MaterialPageRoute(
+                            builder: (context) => DetailPage(state.search.results![index])
+                          ),
+                        );
+                      },
+                      child: Container(
+                        child: AspectRatio(
+                          aspectRatio: 105 / 160,
+                          child: ClipRRect(
+                            borderRadius: BorderRadius.circular(4),
+                            child: ImageCustom(
+                              width: itemWidth,
+                              height: itemHeight,
+                              fit: BoxFit.cover,
+                              image: NetworkImage(
+                                getPosterUrl(
+                                  state.search.results![index].posterPath!
+                                )
+                              ),
                             ),
                           ),
                         ),

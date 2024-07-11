@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:movlix/functions/global_func.dart';
 import 'package:movlix/models/fetch_response.dart';
+import 'package:movlix/screens/detail_pages/detail_page.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/image_custom.dart';
 
@@ -17,60 +18,67 @@ class NowShowingCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(horizontal: 10.0),
-      child: AspectRatio(
-        aspectRatio: 177 / 242,
-        child: ClipRRect(
-          borderRadius: BorderRadius.circular(10),
-          child: ImageCustom(
-            fit: BoxFit.cover,
-            height: itemHeight,
-            width: deviceWidth * 0.7,
-            image: NetworkImage(getPosterUrl(detail.posterPath!)),
-            child: Stack(
-              children: [
-                Align(
-                  alignment: Alignment.bottomCenter,
-                  child: Container(
-                    height: 150,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.circular(12),
-                        bottomRight: Radius.circular(12),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context, MaterialPageRoute(builder: (context) => DetailPage(detail)),
+        );
+      },
+      child: Container(
+        margin: EdgeInsets.symmetric(horizontal: 10.0),
+        child: AspectRatio(
+          aspectRatio: 177 / 242,
+          child: ClipRRect(
+            borderRadius: BorderRadius.circular(10),
+            child: ImageCustom(
+              fit: BoxFit.cover,
+              height: itemHeight,
+              width: deviceWidth * 0.7,
+              image: NetworkImage(getPosterUrl(detail.posterPath!)),
+              child: Stack(
+                children: [
+                  Align(
+                    alignment: Alignment.bottomCenter,
+                    child: Container(
+                      height: 150,
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.circular(12),
+                          bottomRight: Radius.circular(12),
+                        ),
+                        gradient: LinearGradient(
+                          begin: Alignment.topCenter,
+                          end: Alignment.bottomCenter,
+                          colors: [
+                            Color(0xff000000).withOpacity(0.05),
+                            Color(0xff000000).withOpacity(0.15),
+                            Color(0xff000000).withOpacity(0.25),
+                            Color(0xff000000).withOpacity(0.45),
+                            Color(0xff000000).withOpacity(0.65),
+                            Color(0xff000000).withOpacity(0.95),
+                          ]
+                        )
                       ),
-                      gradient: LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xff000000).withOpacity(0.05),
-                          Color(0xff000000).withOpacity(0.15),
-                          Color(0xff000000).withOpacity(0.25),
-                          Color(0xff000000).withOpacity(0.45),
-                          Color(0xff000000).withOpacity(0.65),
-                          Color(0xff000000).withOpacity(0.95),
-                        ]
-                      )
                     ),
                   ),
-                ),
-                Container(
-                  margin: EdgeInsets.only(left: 16, bottom: 16),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      Text(
-                        detail.title!,
-                        style: base.white.semiBold,
-                      ),
-                      SizedBox(
-                        height: 8,
-                      ),
-                    ],
+                  Container(
+                    margin: EdgeInsets.only(left: 16, bottom: 16),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.end,
+                      children: [
+                        Text(
+                          detail.title!,
+                          style: base.white.semiBold,
+                        ),
+                        SizedBox(
+                          height: 8,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),

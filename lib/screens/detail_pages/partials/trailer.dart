@@ -1,13 +1,16 @@
 import 'package:flutter/material.dart';
 import 'package:movlix/functions/global_func.dart';
+import 'package:movlix/models/trailer_response.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/shared/dummies.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:movlix/widgets/image_custom.dart';
 import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
+// ignore: must_be_immutable
 class Trailer extends StatefulWidget {
-  const Trailer({super.key});
+  TrailerResponse trailer;
+  Trailer({super.key, required this.trailer});
 
   @override
   State<Trailer> createState() => _TrailerState();
@@ -20,7 +23,7 @@ class _TrailerState extends State<Trailer> {
   void initState() {
     super.initState();
     _controller = YoutubePlayerController(
-      initialVideoId: 'K4TOrB7at0Y',
+      initialVideoId: this.widget.trailer.results![0].key!,
       flags: YoutubePlayerFlags(
         autoPlay: true,
         mute: false,

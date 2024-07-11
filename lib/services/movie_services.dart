@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:movlix/models/cast_response.dart';
 import 'package:movlix/models/detail_response.dart';
 import 'package:movlix/models/fetch_response.dart';
+import 'package:movlix/models/trailer_response.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:http/http.dart' as http;
 
@@ -146,6 +147,25 @@ class MovieServices {
       var decoded = jsonDecode(response.body);
 
       return CastResponse.fromJson(decoded);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<TrailerResponse?> getMovieTrailers({
+    required String id,
+  }) async {
+    try {
+      var url = baseUrl + 'movie/$id/videos';
+      var response = await http.get(Uri.parse(url), headers: {
+        "Authorization": token,
+      });
+
+      if (response.body.isEmpty) return null;
+      if (response.statusCode != 200) return null;
+      var decoded = jsonDecode(response.body);
+
+      return TrailerResponse.fromJson(decoded);
     } catch (e) {
       return null;
     }
