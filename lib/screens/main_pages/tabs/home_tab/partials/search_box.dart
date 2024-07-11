@@ -14,7 +14,9 @@ class SearchBox extends StatelessWidget {
       margin: EdgeInsets.only(left: 20, right: 20),
       height: 52,
       decoration: BoxDecoration(
-          color: greyColor2, borderRadius: BorderRadius.circular(16)),
+        color: greyColor2,
+        borderRadius: BorderRadius.circular(16)
+      ),
       child: Row(
         children: [
           ImageCustom(

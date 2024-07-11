@@ -14,6 +14,7 @@ import 'package:movlix/screens/detail_pages/partials/synopsis.dart';
 import 'package:movlix/screens/detail_pages/partials/trailer.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/view_models/detail/detail_view_model.dart';
+import 'package:movlix/widgets/loading_custom.dart';
 import 'package:movlix/widgets/row_slide_content.dart';
 
 // ignore: must_be_immutable
@@ -55,14 +56,7 @@ class _DetailPageState extends State<DetailPage> {
               listener: (context, state) {},
               builder: (context, state) {
                 if (state is MovieTrailerLoading) {
-                  return Container(
-                      height: 200,
-                      width: double.infinity,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: whiteColor,
-                        ),
-                      ));
+                  return LoadingCustom();
                 }
                 if (state is MovieTrailerSuccess) {
                   return Trailer(trailer: state.trailer, detail: detail,);
@@ -77,14 +71,7 @@ class _DetailPageState extends State<DetailPage> {
               listener: (context, state) {},
               builder: (context, state) {
                 if (state is MovieCastLoading) {
-                  return Container(
-                      height: 200,
-                      width: double.infinity,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: whiteColor,
-                        ),
-                      ));
+                  return LoadingCustom();
                 }
                 if (state is MovieCastSuccess) {
                   return Cast(state: state.cast);
@@ -99,14 +86,7 @@ class _DetailPageState extends State<DetailPage> {
               listener: (context, state) {},
               builder: (context, state) {
                 if (state is MovieRecommendationsLoading) {
-                  return Container(
-                      height: 200,
-                      width: double.infinity,
-                      child: Center(
-                        child: CircularProgressIndicator(
-                          color: whiteColor,
-                        ),
-                      ));
+                  return LoadingCustom();
                 }
                 if (state is MovieRecommendationsSuccess) {
                   return RowSlideContent(

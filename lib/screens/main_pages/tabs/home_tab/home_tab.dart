@@ -10,8 +10,8 @@ import 'package:movlix/screens/main_pages/tabs/home_tab/partials/header_user.dar
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/now_showing_movie.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/search_box.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/top_rated_movie.dart';
-import 'package:movlix/shared/constants.dart';
 import 'package:movlix/view_models/main/home_view_model.dart';
+import 'package:movlix/widgets/loading_custom.dart';
 import 'package:movlix/widgets/row_slide_content.dart';
 
 class HomeTab extends StatefulWidget {
@@ -56,14 +56,7 @@ class _HomeTabState extends State<HomeTab> {
             listener: (context, state) {},
             builder: (context, state) {
               if (state is TopRatedMovieLoading) {
-                return Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: whiteColor,
-                      ),
-                    ));
+                return LoadingCustom();
               }
               if (state is TopRatedMovieSuccess) {
                 return TopRatedMovie(
@@ -81,14 +74,7 @@ class _HomeTabState extends State<HomeTab> {
             listener: (context, state) {},
             builder: (context, state) {
               if (state is PopularMovieLoading) {
-                return Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: whiteColor,
-                      ),
-                    ));
+                return LoadingCustom();
               }
               if (state is PopularMovieSuccess) {
                 return RowSlideContent(
@@ -107,14 +93,7 @@ class _HomeTabState extends State<HomeTab> {
             listener: (context, state) {},
             builder: (context, state) {
               if (state is ComingSoonMovieLoading) {
-                return Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: whiteColor,
-                      ),
-                    ));
+                return LoadingCustom();
               }
               if (state is ComingSoonMovieSuccess) {
                 return ComingSoonMovie(
@@ -133,14 +112,7 @@ class _HomeTabState extends State<HomeTab> {
             listener: (context, state) {},
             builder: (context, state) {
               if (state is NowPlayingMovieLoading) {
-                return Container(
-                    height: 200,
-                    width: double.infinity,
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: whiteColor,
-                      ),
-                    ));
+                return LoadingCustom();
               }
               if (state is NowPlayingMovieSuccess) {
                 return NowShowing(

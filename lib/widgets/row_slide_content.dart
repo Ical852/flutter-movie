@@ -10,7 +10,13 @@ class RowSlideContent extends StatelessWidget {
   bool isDetail;
   FetchResponse state;
   String title;
-  RowSlideContent({super.key, required this.title, required this.state, this.isDetail = false});
+
+  RowSlideContent({
+    super.key,
+    required this.title,
+    required this.state,
+    this.isDetail = false
+  });
 
   @override
   Widget build(BuildContext context) {

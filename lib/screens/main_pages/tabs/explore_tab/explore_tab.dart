@@ -31,19 +31,21 @@ class _ExploreTabState extends State<ExploreTab> {
       return Container(
         height: 52,
         decoration: BoxDecoration(
-            color: greyColor2,
-            boxShadow: [getBoxShadow(1.5)],
-            borderRadius: BorderRadius.circular(8)),
+          color: greyColor2,
+          boxShadow: [getBoxShadow(1.5)],
+          borderRadius: BorderRadius.circular(8)
+        ),
         margin: EdgeInsets.all(24),
         child: Stack(
           children: [
             TextFormField(
               style: regular.white.semiBold,
               decoration: InputDecoration(
-                  labelText: "Search movie or tv here",
-                  labelStyle: regular.regularF.copyWith(color: whiteColor),
-                  border: InputBorder.none,
-                  contentPadding: EdgeInsets.only(right: 14, left: 52)),
+                labelText: "Search movie or tv here",
+                labelStyle: regular.regularF.copyWith(color: whiteColor),
+                border: InputBorder.none,
+                contentPadding: EdgeInsets.only(right: 14, left: 52)
+              ),
               controller: searchController,
               onFieldSubmitted: (e) {
                 exploreVM.searchMovie(e.toString());
@@ -84,11 +86,11 @@ class _ExploreTabState extends State<ExploreTab> {
                 child: GridView.builder(
                   padding: EdgeInsets.only(left: 20, right: 20, bottom: 172),
                   gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      childAspectRatio: 105 / 160,
-                      crossAxisSpacing: 10,
-                      mainAxisSpacing: 10
-                      ),
+                    crossAxisCount: 3,
+                    childAspectRatio: 105 / 160,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10
+                  ),
                   itemCount: state.search.results!.length,
                   itemBuilder: (context, index) {
                     double itemWidth = getWH(context, "width") / 3 - 20;
