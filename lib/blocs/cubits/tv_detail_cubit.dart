@@ -12,8 +12,7 @@ class TvDetailCubit extends Cubit<TvDetailState> {
   void getTvDetail(String id) async {
     emit(TvDetailLoading());
     DetailTvResponse? detail = await MovieServices().getTvDetail(id: id);
-    if (detail == null)
-      emit(TvDetailFailed("Failed to get now playing"));
+    if (detail == null) emit(TvDetailFailed("Failed to get now playing"));
     if (isNotNull(detail)) emit(TvDetailSuccess(detail!));
   }
 }

@@ -9,7 +9,11 @@ import 'package:movlix/view_models/detail/detail_view_model.dart';
 class DetailPage extends StatefulWidget {
   bool isTv;
   Results detail;
-  DetailPage({required this.detail, this.isTv = false});
+
+  DetailPage({
+    required this.detail,
+    this.isTv = false
+  });
 
   @override
   State<DetailPage> createState() => _DetailPageState();
@@ -34,12 +38,30 @@ class _DetailPageState extends State<DetailPage> {
     }
   }
 
+  Widget MainContent() {
+    if (this.widget.isTv) {
+      return DetailTv(
+        mainDetail: this.widget.detail,
+        onDetailFetch: () => detailVM.getDetailTv(this.widget.detail.id.toString()),
+        onRecommendFetch: () => detailVM.getRecommendationsTv(this.widget.detail.id.toString()),
+        onCastFetch: () => detailVM.getCastsTv(this.widget.detail.id.toString()),
+        onTrailerFetch: () => detailVM.getTrailerTv(this.widget.detail.id.toString()),
+      );
+    }
+    return DetailMovie(
+      onDetailFetch: () => detailVM.getDetail(this.widget.detail.id.toString()),
+      onRecommendFetch: () => detailVM.getRecommendations(this.widget.detail.id.toString()),
+      onCastFetch: () => detailVM.getCasts(this.widget.detail.id.toString()),
+      onTrailerFetch: () => detailVM.getTrailer(this.widget.detail.id.toString()),
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: primary,
       body: SafeArea(
-        child: this.widget.isTv ? DetailTv(mainDetail: this.widget.detail,) : DetailMovie()
+        child: MainContent()
       ),
     );
   }

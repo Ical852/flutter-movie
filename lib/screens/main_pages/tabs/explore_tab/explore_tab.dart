@@ -56,11 +56,24 @@ class _ExploreTabState extends State<ExploreTab> {
       );
     }
 
+    Widget MainContent() {
+      if (search == "movie") {
+        return MovieList(
+          refresh: () => exploreVM.searchMovie(""),
+          search: search
+        );
+      }
+      return TvList(
+        refresh: () => exploreVM.searchTv(""),
+        search: search
+      );
+    }
+
     return Container(
       child: Column(
         children: [
           SearchBarContent(),
-          search == "movie" ? MovieList(search: search) : TvList(search: search)
+          MainContent()
         ],
       )
     );

@@ -11,7 +11,12 @@ import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 class Trailer extends StatefulWidget {
   DetailResponse detail;
   TrailerResponse trailer;
-  Trailer({super.key, required this.trailer, required this.detail});
+
+  Trailer({
+    super.key,
+    required this.trailer,
+    required this.detail
+  });
 
   @override
   State<Trailer> createState() => _TrailerState();

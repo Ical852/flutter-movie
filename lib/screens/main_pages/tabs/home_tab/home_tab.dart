@@ -12,6 +12,7 @@ import 'package:movlix/blocs/cubits/trending_movie_today_cubit.dart';
 import 'package:movlix/blocs/cubits/trending_movie_week_cubit.dart';
 import 'package:movlix/blocs/cubits/trending_tv_today_cubit.dart';
 import 'package:movlix/blocs/cubits/trending_tv_week_cubit.dart';
+import 'package:movlix/functions/global_func.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/center_carousel.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/header_user.dart';
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/center_show_carousel.dart';
@@ -19,6 +20,7 @@ import 'package:movlix/screens/main_pages/tabs/home_tab/partials/search_box.dart
 import 'package:movlix/screens/main_pages/tabs/home_tab/partials/top_rated_movie.dart';
 import 'package:movlix/view_models/main/home_view_model.dart';
 import 'package:movlix/widgets/loading_custom.dart';
+import 'package:movlix/widgets/refetch_data.dart';
 import 'package:movlix/widgets/row_slide_content.dart';
 
 class HomeTab extends StatefulWidget {
@@ -60,8 +62,9 @@ class _HomeTabState extends State<HomeTab> {
             height: 16,
           ),
           GestureDetector(
-              onTap: () => context.read<PageCubit>().setNewPage("explore"),
-              child: SearchBox()),
+            onTap: () => context.read<PageCubit>().setNewPage("explore"),
+            child: SearchBox()
+          ),
           SizedBox(
             height: 24,
           ),
@@ -71,16 +74,22 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget TopRatedContent() {
       return BlocConsumer<TopRatedMovieCubit, TopRatedMovieState>(
-        listener: (context, state) {},
-        builder: (context, state) {
-          if (state is TopRatedMovieLoading) {
-            return LoadingCustom();
+        listener: (context, state) {
+          if (state is TopRatedTvFailed) {
+            showGLobalAlert("danger", "Failed to get Top Rated Movie", context);
           }
-          if (state is TopRatedMovieSuccess) {
-            return TopRatedMovie(
-              state: state.topRated,
+        },
+        builder: (context, state) {
+          if (state is TopRatedMovieLoading) return LoadingCustom();
+          if (state is TopRatedTvFailed) {
+            return RefetchData(
+              title: "Failed to get Top Rated Movie", 
+              onRefetch: () => homeVM.getTopRated()
             );
           }
+          if (state is TopRatedMovieSuccess) return TopRatedMovie(
+            state: state.topRated,
+          );
           return Container();
         },
       );
@@ -88,10 +97,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget PopularMovieContent() {
       return BlocConsumer<PopularMovieCubit, PopularMovieState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is PopularMovieFailed) {
+            showGLobalAlert("danger", "Fialed to get Popular Movie", context);
+          }
+        },
         builder: (context, state) {
-          if (state is PopularMovieLoading) {
-            return LoadingCustom();
+          if (state is PopularMovieLoading) return LoadingCustom();
+          if (state is PopularMovieFailed) {
+            return RefetchData(
+              title: "Failed to get Popular Movie",
+              onRefetch: () => homeVM.getPopular(),
+            );
           }
           if (state is PopularMovieSuccess) {
             return RowSlideContent(
@@ -106,10 +123,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget ComingSoonMovieContent() {
       return BlocConsumer<ComingSoonMovieCubit, ComingSoonMovieState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is ComingSoonMovieFailed) {
+            showGLobalAlert("danger", "Failed to get Coming Soon Movie", context);
+          }
+        },
         builder: (context, state) {
-          if (state is ComingSoonMovieLoading) {
-            return LoadingCustom();
+          if (state is ComingSoonMovieLoading) return LoadingCustom();
+          if (state is ComingSoonMovieFailed) {
+            return RefetchData(
+              title: "Failed to get Coming Soon Movie",
+              onRefetch: () => homeVM.getComingSoon(),
+            );
           }
           if (state is ComingSoonMovieSuccess) {
             return CenterCarousel(
@@ -124,10 +149,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget NowPlayingMovieContent() {
       return BlocConsumer<NowPlayingMovieCubit, NowPlayingMovieState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is NowPlayingMovieFailed) {
+            showGLobalAlert("danger", "Failed to get Now Playing Movie", context);
+          }
+        },
         builder: (context, state) {
-          if (state is NowPlayingMovieLoading) {
-            return LoadingCustom();
+          if (state is NowPlayingMovieLoading) return LoadingCustom();
+          if (state is NowPlayingMovieFailed) {
+            return RefetchData(
+              title: "Failed to get Now Playing Movie",
+              onRefetch: () => homeVM.getNowPlaying(),
+            );
           }
           if (state is NowPlayingMovieSuccess) {
             return CenterShowCarousel(
@@ -142,10 +175,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget TrendingMovieWeekContent() {
       return BlocConsumer<TrendingMovieWeekCubit, TrendingMovieWeekState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is TrendingMovieWeekFailed) {
+            showGLobalAlert("danger", "Failed to get Trending Movie This Week", context);
+          }
+        },
         builder: (context, state) {
-          if (state is TrendingMovieWeekLoading) {
-            return LoadingCustom();
+          if (state is TrendingMovieWeekLoading) return LoadingCustom();
+          if (state is TrendingMovieWeekFailed) {
+            return RefetchData(
+              title: "Failed to get Trending Movie This Week",
+              onRefetch: () => homeVM.getTrendingMovieWeek(),
+            );
           }
           if (state is TrendingMovieWeekSuccess) {
             return RowSlideContent(
@@ -160,10 +201,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget TrendingTvWeekContent() {
       return BlocConsumer<TrendingTvWeekCubit, TrendingTvWeekState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is TrendingTvWeekFailed) {
+            showGLobalAlert("danger", "Failed to get Trending Tv This Week", context);
+          }
+        },
         builder: (context, state) {
-          if (state is TrendingTvWeekLoading) {
-            return LoadingCustom();
+          if (state is TrendingTvWeekLoading) return LoadingCustom();
+          if (state is TrendingTvWeekFailed) {
+            return RefetchData(
+              title: "Failed to get Trending Tv This Week",
+              onRefetch: () => homeVM.getTrendingTvWeek(),
+            );
           }
           if (state is TrendingTvWeekSuccess) {
             return RowSlideContent(
@@ -179,10 +228,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget PopularTvContent() {
       return BlocConsumer<PopularTvCubit, PopularTvState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is PopularTvFailed) {
+            showGLobalAlert("danger", "Failed to get popular tv", context);
+          }
+        },
         builder: (context, state) {
-          if (state is PopularTvLoading) {
-            return LoadingCustom();
+          if (state is PopularTvLoading) return LoadingCustom();
+          if (state is PopularTvFailed) {
+            return RefetchData(
+              title: "Failed to get popular tv",
+              onRefetch: () => homeVM.getPopularTv(),
+            );
           }
           if (state is PopularTvSuccess) {
             return CenterCarousel(
@@ -198,10 +255,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget TrendingMovieTodayContent() {
       return BlocConsumer<TrendingMovieTodayCubit, TrendingMovieTodayState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is TrendingMovieTodayFailed) {
+            showGLobalAlert("danger", "Failed to get Trending Movie Today", context);
+          }
+        },
         builder: (context, state) {
-          if (state is TrendingMovieTodayCubit) {
-            return LoadingCustom();
+          if (state is TrendingMovieTodayCubit) return LoadingCustom();
+          if (state is TrendingMovieTodayFailed) {
+            return RefetchData(
+              title: "Failed to get Trending Movie Today",
+              onRefetch: () => homeVM.getTrendingMovieToday(),
+            );
           }
           if (state is TrendingMovieTodaySuccess) {
             return RowSlideContent(
@@ -216,10 +281,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget TrendingTvTodayContent() {
       return BlocConsumer<TrendingTvTodayCubit, TrendingTvTodayState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is TrendingTvTodayFailed) {
+            showGLobalAlert("danger", "Failed to get Trending Tv Today", context);
+          }
+        },
         builder: (context, state) {
-          if (state is TrendingTvTodayCubit) {
-            return LoadingCustom();
+          if (state is TrendingTvTodayCubit) return LoadingCustom();
+          if (state is TrendingTvTodayFailed) {
+            return RefetchData(
+              title: "Failed to get Trending Tv Today",
+              onRefetch: () => homeVM.getTrendingTvToday(),
+            );
           }
           if (state is TrendingTvTodaySuccess) {
             return RowSlideContent(
@@ -235,10 +308,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget TopRatedTvSeriesContent() {
       return BlocConsumer<TopRatedTvCubit, TopRatedTvState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is TopRatedTvFailed) {
+            showGLobalAlert("danger", "Failed to get Top Rated Tv", context);
+          }
+        },
         builder: (context, state) {
-          if (state is TopRatedTvLoading) {
-            return LoadingCustom();
+          if (state is TopRatedTvLoading) return LoadingCustom();
+          if (state is TopRatedTvFailed) {
+            return RefetchData(
+              title: "Failed to get Top Rated Tv",
+              onRefetch: () => homeVM.getTopRatedTv(),
+            );
           }
           if (state is TopRatedTvSuccess) {
             return CenterShowCarousel(
@@ -254,10 +335,18 @@ class _HomeTabState extends State<HomeTab> {
 
     Widget AllTrendingTodayContent() {
       return BlocConsumer<AllTrendingTodayCubit, AllTrendingTodayState>(
-        listener: (context, state) {},
+        listener: (context, state) {
+          if (state is AllTrendingTodayFailed) {
+            showGLobalAlert("danger", "Failed to get All Trending Today", context);
+          }
+        },
         builder: (context, state) {
-          if (state is AllTrendingTodayLoading) {
-            return LoadingCustom();
+          if (state is AllTrendingTodayLoading) return LoadingCustom();
+          if (state is AllTrendingTodayFailed) {
+            return RefetchData(
+              title: "Failed to get All Trending Today",
+              onRefetch: () => homeVM.getAllTrendingToday(),
+            );
           }
           if (state is AllTrendingTodaySuccess) {
             return RowSlideContent(
@@ -266,7 +355,6 @@ class _HomeTabState extends State<HomeTab> {
             );
           }
           return Container();
-          
         },
       );
     }
@@ -296,9 +384,7 @@ class _HomeTabState extends State<HomeTab> {
           TopRatedTvSeriesContent(),
           SizedBox(height: 32),
           AllTrendingTodayContent(),
-          SizedBox(
-            height: 172,
-          ),
+          SizedBox(height: 172),
         ],
       ),
     );

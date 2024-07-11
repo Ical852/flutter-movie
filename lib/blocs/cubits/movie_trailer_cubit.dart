@@ -12,8 +12,7 @@ class MovieTrailerCubit extends Cubit<MovieTrailerState> {
   void getMovieTrailers(String id) async {
     emit(MovieTrailerLoading());
     TrailerResponse? topRated = await MovieServices().getMovieTrailers(id: id);
-    if (topRated == null)
-      emit(MovieTrailerFailed("Failed to get coming soon"));
+    if (topRated == null) emit(MovieTrailerFailed("Failed to get coming soon"));
     if (isNotNull(topRated)) emit(MovieTrailerSuccess(topRated!));
   }
 }

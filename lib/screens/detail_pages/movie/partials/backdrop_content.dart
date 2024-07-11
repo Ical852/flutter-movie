@@ -12,6 +12,56 @@ class BackdropContent extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget HeadContentDetail() {
+      return Expanded(
+        child: Container(
+          margin: EdgeInsets.only(left: 20),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              Text(
+                detail.title!,
+                style: mega.white.semiBold,
+                maxLines: 2,
+              ),
+              SizedBox(height: 2,),
+              Text(
+                convertMinutesToHourMinute(detail.runtime!),
+                style: regular.white.regularF,
+              ),
+              Row(
+                children: [
+                  ImageCustom(height: 16, width: 16, image: AssetImage(getIC("ic_star.png")),),
+                  SizedBox(width: 4,),
+                  Text(
+                    "${detail.voteAverage!.toStringAsFixed(1)} / 10 from IMDb",
+                    style: regular.grey.regularF,
+                  )
+                ],
+              ),
+              Row(
+                children: [
+                  ImageCustom(height: 16, width: 16, image: AssetImage(getIC("ic_thumb.png")),),
+                  SizedBox(width: 4,),
+                  Text(
+                    "${detail.voteCount} votes from users",
+                    style: regular.grey.regularF,
+                  )
+                ],
+              ),
+              SizedBox(height: 3,),
+              MiniButtonCustom(
+                width: 160,
+                height: 30,
+                title: "Watch Now", onPressed: (){}
+              )
+            ],
+          ),
+        )
+      );
+    }
+
     return Container(
       padding: EdgeInsets.only(
         bottom: 20
@@ -37,53 +87,7 @@ class BackdropContent extends StatelessWidget {
             child: Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               children: [
-                Expanded(
-                  child: Container(
-                    margin: EdgeInsets.only(left: 20),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        Text(
-                          detail.title!,
-                          style: mega.white.semiBold,
-                          maxLines: 2,
-                        ),
-                        SizedBox(height: 2,),
-                        Text(
-                          convertMinutesToHourMinute(detail.runtime!),
-                          style: regular.white.regularF,
-                        ),
-                        Row(
-                          children: [
-                            ImageCustom(height: 16, width: 16, image: AssetImage(getIC("ic_star.png")),),
-                            SizedBox(width: 4,),
-                            Text(
-                              "${detail.voteAverage!.toStringAsFixed(1)} / 10 from IMDb",
-                              style: regular.grey.regularF,
-                            )
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            ImageCustom(height: 16, width: 16, image: AssetImage(getIC("ic_thumb.png")),),
-                            SizedBox(width: 4,),
-                            Text(
-                              "${detail.voteCount} votes from users",
-                              style: regular.grey.regularF,
-                            )
-                          ],
-                        ),
-                        SizedBox(height: 3,),
-                        MiniButtonCustom(
-                          width: 160,
-                          height: 30,
-                          title: "Watch Now", onPressed: (){}
-                        )
-                      ],
-                    ),
-                  )
-                ),
+                HeadContentDetail(),
                 Container(
                   child: ImageCustom(
                     height: 170,

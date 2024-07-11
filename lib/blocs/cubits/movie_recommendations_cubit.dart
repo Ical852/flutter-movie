@@ -12,8 +12,7 @@ class MovieRecommendationsCubit extends Cubit<MovieRecommendationsState> {
   void getMovieRecommendations(String id) async {
     emit(MovieRecommendationsLoading());
     FetchResponse? topRated = await MovieServices().getMovieRecommendations(id: id);
-    if (topRated == null)
-      emit(MovieRecommendationsFailed("Failed to get coming soon"));
+    if (topRated == null)emit(MovieRecommendationsFailed("Failed to get coming soon"));
     if (isNotNull(topRated)) emit(MovieRecommendationsSuccess(topRated!));
   }
 }

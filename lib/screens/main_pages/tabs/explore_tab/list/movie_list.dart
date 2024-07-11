@@ -4,13 +4,17 @@ import 'package:movlix/blocs/cubits/search_movie_cubit.dart';
 import 'package:movlix/functions/global_func.dart';
 import 'package:movlix/screens/main_pages/tabs/explore_tab/widgets/grid_card.dart';
 import 'package:movlix/shared/constants.dart';
+import 'package:movlix/widgets/refetch_data.dart';
 
 // ignore: must_be_immutable
 class MovieList extends StatelessWidget {
   String search;
+  Function() refresh;
+
   MovieList({
     super.key,
-    required this.search
+    required this.search,
+    required this.refresh,
   });
 
   @override
@@ -23,6 +27,16 @@ class MovieList extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator(
                 color: whiteColor,
+              ),
+            ),
+          );
+        }
+        if (state is SearchMovieFailed) {
+          return Expanded(
+            child: Center(
+              child: RefetchData(
+                title: "Failed to get movie list",
+                onRefetch: refresh,
               ),
             ),
           );

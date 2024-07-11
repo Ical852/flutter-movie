@@ -12,8 +12,7 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
   void getMovieDetail(String id) async {
     emit(MovieDetailLoading());
     DetailResponse? detail = await MovieServices().getMovieDetail(id: id);
-    if (detail == null)
-      emit(MovieDetailFailed("Failed to get now playing"));
+    if (detail == null) emit(MovieDetailFailed("Failed to get now playing"));
     if (isNotNull(detail)) emit(MovieDetailSuccess(detail!));
   }
 }

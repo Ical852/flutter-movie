@@ -12,6 +12,51 @@ class Synopsis extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget TopDetail() {
+      return Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                "Release Date",
+                style: base.white.semiBold,
+              ),
+              SizedBox(height: 12,),
+              Text(
+                dateFormat(detail.releaseDate!),
+                style: regular.grey.regularF,
+              )
+            ],
+          ),
+          SizedBox(width: 50,),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  "Genre",
+                  style: base.white.semiBold,
+                ),
+                SizedBox(height: 8,),
+                Wrap(
+                  children: detail.genres!.map((genre){
+                    return Container(
+                      margin: EdgeInsets.only(right: 12, bottom: 12),
+                      child: GenreBadge(
+                        title: genre.name!
+                      )
+                    );
+                  }).toList(),
+                )
+              ],
+            ),
+          )
+        ],
+      );
+    }
+
     return Container(
       margin: EdgeInsets.symmetric(
         horizontal: 20
@@ -21,48 +66,7 @@ class Synopsis extends StatelessWidget {
         children: [
           Line(),
           SizedBox(height: 16,),
-          Row(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    "Release Date",
-                    style: base.white.semiBold,
-                  ),
-                  SizedBox(height: 12,),
-                  Text(
-                    dateFormat(detail.releaseDate!),
-                    style: regular.grey.regularF,
-                  )
-                ],
-              ),
-              SizedBox(width: 50,),
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      "Genre",
-                      style: base.white.semiBold,
-                    ),
-                    SizedBox(height: 8,),
-                    Wrap(
-                      children: detail.genres!.map((genre){
-                        return Container(
-                          margin: EdgeInsets.only(right: 12, bottom: 12),
-                          child: GenreBadge(
-                            title: genre.name!
-                          )
-                        );
-                      }).toList(),
-                    )
-                  ],
-                ),
-              )
-            ],
-          ),
+          TopDetail(),
           SizedBox(height: 16,),
           Line(),
           SizedBox(height: 12,),

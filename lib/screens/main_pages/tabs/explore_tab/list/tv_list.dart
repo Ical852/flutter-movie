@@ -4,13 +4,17 @@ import 'package:movlix/blocs/cubits/search_tv_cubit.dart';
 import 'package:movlix/functions/global_func.dart';
 import 'package:movlix/screens/main_pages/tabs/explore_tab/widgets/grid_card.dart';
 import 'package:movlix/shared/constants.dart';
+import 'package:movlix/widgets/refetch_data.dart';
 
 // ignore: must_be_immutable
 class TvList extends StatelessWidget {
   String search;
+  Function() refresh;
+
   TvList({
     super.key,
-    required this.search
+    required this.search,
+    required this.refresh,
   });
 
   @override
@@ -23,6 +27,16 @@ class TvList extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator(
                 color: whiteColor,
+              ),
+            ),
+          );
+        }
+        if (state is SearchTvFailed) {
+          return Expanded(
+            child: Center(
+              child: RefetchData(
+                title: "Failed to get tv list",
+                onRefetch: refresh,
               ),
             ),
           );

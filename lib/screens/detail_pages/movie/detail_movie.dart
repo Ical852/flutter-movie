@@ -4,6 +4,7 @@ import 'package:movlix/blocs/cubits/movie_cast_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_detail_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_recommendations_cubit.dart';
 import 'package:movlix/blocs/cubits/movie_trailer_cubit.dart';
+import 'package:movlix/functions/global_func.dart';
 import 'package:movlix/models/detail_response.dart';
 import 'package:movlix/screens/detail_pages/movie/partials/backdrop_content.dart';
 import 'package:movlix/screens/detail_pages/movie/partials/backdrop_img.dart';
@@ -13,83 +14,114 @@ import 'package:movlix/screens/detail_pages/movie/partials/synopsis.dart';
 import 'package:movlix/screens/detail_pages/movie/partials/trailer.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/widgets/loading_custom.dart';
+import 'package:movlix/widgets/refetch_data.dart';
 import 'package:movlix/widgets/row_slide_content.dart';
 
+// ignore: must_be_immutable
 class DetailMovie extends StatelessWidget {
-  const DetailMovie({super.key});
+  Function() 
+    onDetailFetch,
+    onRecommendFetch,
+    onCastFetch,
+    onTrailerFetch;
+  
+  DetailMovie({
+    super.key,
+    required this.onDetailFetch, 
+    required this.onRecommendFetch, 
+    required this.onCastFetch, 
+    required this.onTrailerFetch
+  });
 
   @override
   Widget build(BuildContext context) {
+    Widget TrailerContent(DetailResponse detail) {
+      return BlocConsumer<MovieTrailerCubit, MovieTrailerState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is MovieTrailerLoading) return LoadingCustom();
+          if (state is MovieTrailerFailed) {
+            return RefetchData(
+              title: "Failed to get Trailer Data",
+              onRefetch: onTrailerFetch,
+            );
+          }
+          if (state is MovieTrailerSuccess) {
+            return Trailer(
+              trailer: state.trailer,
+              detail: detail,
+            );
+          }
+          return Container();
+        },
+      );
+    }
+    
+    Widget MovieCastContent() {
+      return BlocConsumer<MovieCastCubit, MovieCastState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is MovieCastLoading) return LoadingCustom();
+          if (state is MovieCastFailed) {
+            return RefetchData(
+              title: "Failed to get Movie Cast",
+              onRefetch: onCastFetch,
+            );
+          }
+          if (state is MovieCastSuccess) return Cast(state: state.cast);
+          return Container();
+        },
+      );
+    }
+
+    Widget MovieRecommendationContent() {
+      return BlocConsumer<MovieRecommendationsCubit, MovieRecommendationsState>(
+        listener: (context, state) {},
+        builder: (context, state) {
+          if (state is MovieRecommendationsLoading) return LoadingCustom();
+          if (state is MovieRecommendationsFailed) {
+            return RefetchData(
+              title: "Failed to get Movie Recommendations",
+              onRefetch: onRecommendFetch,
+            );
+          }
+          if (state is MovieRecommendationsSuccess) {
+            return RowSlideContent(
+              isDetail: true,
+              state: state.recommendations,
+              title: "More Like This"
+            );
+          }
+          return Container();
+        },
+      );
+    }
+
     Widget MainContent(DetailResponse detail) {
       return Container(
         margin: EdgeInsets.only(top: 380),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Synopsis(
-              detail: detail,
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BlocConsumer<MovieTrailerCubit, MovieTrailerState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is MovieTrailerLoading) {
-                  return LoadingCustom();
-                }
-                if (state is MovieTrailerSuccess) {
-                  return Trailer(
-                    trailer: state.trailer,
-                    detail: detail,
-                  );
-                }
-                return Container();
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BlocConsumer<MovieCastCubit, MovieCastState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is MovieCastLoading) {
-                  return LoadingCustom();
-                }
-                if (state is MovieCastSuccess) {
-                  return Cast(state: state.cast);
-                }
-                return Container();
-              },
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            BlocConsumer<MovieRecommendationsCubit, MovieRecommendationsState>(
-              listener: (context, state) {},
-              builder: (context, state) {
-                if (state is MovieRecommendationsLoading) {
-                  return LoadingCustom();
-                }
-                if (state is MovieRecommendationsSuccess) {
-                  return RowSlideContent(
-                      isDetail: true,
-                      state: state.recommendations,
-                      title: "More Like This");
-                }
-                return Container();
-              },
-            ),
-            SizedBox(
-              height: 72,
-            )
+            Synopsis(detail: detail),
+            SizedBox(height: 20),
+            TrailerContent(detail),
+            SizedBox(height: 20),
+            MovieCastContent(),
+            SizedBox(height: 20),
+            MovieRecommendationContent(),
+            SizedBox(height: 72)
           ],
         ),
       );
     }
 
     return BlocConsumer<MovieDetailCubit, MovieDetailState>(
-      listener: (context, state) {},
+      listener: (context, state) {
+        if (state is MovieDetailFailed) {
+          showGLobalAlert("danger", "Failed to get Movie Detail", context);
+        }
+      },
       builder: (context, state) {
         if (state is MovieDetailLoading) {
           return Container(
@@ -98,6 +130,18 @@ class DetailMovie extends StatelessWidget {
             child: Center(
               child: CircularProgressIndicator(
                 color: whiteColor,
+              ),
+            ),
+          );
+        }
+        if (state is MovieDetailFailed) {
+          return Container(
+            width: double.infinity,
+            height: double.infinity,
+            child: Center(
+              child: RefetchData(
+                title: "Failed to get Movie Detail",
+                onRefetch: onDetailFetch,
               ),
             ),
           );
