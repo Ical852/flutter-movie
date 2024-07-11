@@ -183,6 +183,7 @@ class MovieServices {
 
       return DetailTvResponse.fromJson(decoded);
     } catch (e) {
+      print(e);
       return null;
     }
   }

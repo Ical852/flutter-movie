@@ -8,7 +8,14 @@ import 'package:movlix/shared/text_styles.dart';
 class CenterShowCarousel extends StatelessWidget {
   FetchResponse state;
   String title;
-  CenterShowCarousel({super.key, required this.title, required this.state});
+  bool isTv;
+
+  CenterShowCarousel({
+    super.key,
+    required this.title,
+    required this.state,
+    this.isTv = false,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +40,7 @@ class CenterShowCarousel extends StatelessWidget {
                 itemCount: state.results!.length,
                 itemBuilder: (context, index, realIndex) {
                   return NowShowingCard(
+                    isTv: isTv,
                     deviceWidth: deviceWidth,
                     itemHeight: itemHeight,
                     detail: state.results![index]

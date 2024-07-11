@@ -15,7 +15,7 @@ class CastCard extends StatelessWidget {
       if (cast.profilePath != null) {
         return NetworkImage(getPosterUrl(cast.profilePath!));
       }
-      return AssetImage(getIC("im_user.png"));
+      return AssetImage(getIM("im_user.png"));
     }
 
     return Container(

@@ -167,6 +167,7 @@ class _HomeTabState extends State<HomeTab> {
           }
           if (state is TrendingTvWeekSuccess) {
             return RowSlideContent(
+              isTv: true,
               title: "Trending Tv This Week",
               state: state.trendingTvWeek,
             );
@@ -185,6 +186,7 @@ class _HomeTabState extends State<HomeTab> {
           }
           if (state is PopularTvSuccess) {
             return CenterCarousel(
+              isTv: true,
               title: "Coming Soon",
               state: state.popularTv,
             );
@@ -221,6 +223,7 @@ class _HomeTabState extends State<HomeTab> {
           }
           if (state is TrendingTvTodaySuccess) {
             return RowSlideContent(
+              isTv: true,
               state: state.trendingTvToday,
               title: "Trending Tv Today",
             );
@@ -239,6 +242,7 @@ class _HomeTabState extends State<HomeTab> {
           }
           if (state is TopRatedTvSuccess) {
             return CenterShowCarousel(
+              isTv: true,
               title: "Top Rated Tv Series",
               state: state.topRatedTv,
             );
