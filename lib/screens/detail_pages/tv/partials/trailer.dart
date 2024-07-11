@@ -88,7 +88,10 @@ class _TrailerState extends State<Trailer> {
                 ImageCustom(
                   height: 250, 
                   width: getWH(context, "width") - 40, 
-                  image: NetworkImage(getPosterUrl(this.widget.detail.backdropPath ?? this.widget.detail.posterPath!)), 
+                  image: NetworkImage(
+                    getPosterUrl(
+                      this.widget.detail.backdropPath ?? this.widget.detail.posterPath!
+                    )), 
                   fit: BoxFit.cover,
                   borderRadius: BorderRadius.circular(8),
                 ),

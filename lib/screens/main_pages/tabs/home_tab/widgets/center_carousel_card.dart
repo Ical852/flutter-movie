@@ -18,6 +18,31 @@ class CenterCarouselCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget BackDropLayer() {
+      return Container(
+        width: getWH(context, "width") - 40,
+        height: 45,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.only(
+            topLeft: Radius.circular(12),
+              topRight: Radius.circular(12),
+          ),
+          gradient: LinearGradient(
+            begin: Alignment.topCenter,
+            end: Alignment.bottomCenter,
+            colors: [
+              Color(0xff000000).withOpacity(0.85),
+              Color(0xff000000).withOpacity(0.65),
+              Color(0xff000000).withOpacity(0.45),
+              Color(0xff000000).withOpacity(0.25),
+              Color(0xff000000).withOpacity(0.15),
+              Color(0xff000000).withOpacity(0.05),
+            ]
+          )
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -39,28 +64,7 @@ class CenterCarouselCard extends StatelessWidget {
           borderRadius: BorderRadius.circular(12),
           child: Stack(
             children: [
-              Container(
-                width: getWH(context, "width") - 40,
-                height: 45,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(12),
-                      topRight: Radius.circular(12),
-                  ),
-                  gradient: LinearGradient(
-                    begin: Alignment.topCenter,
-                    end: Alignment.bottomCenter,
-                    colors: [
-                      Color(0xff000000).withOpacity(0.85),
-                      Color(0xff000000).withOpacity(0.65),
-                      Color(0xff000000).withOpacity(0.45),
-                      Color(0xff000000).withOpacity(0.25),
-                      Color(0xff000000).withOpacity(0.15),
-                      Color(0xff000000).withOpacity(0.05),
-                    ]
-                  )
-                ),
-              ),
+              BackDropLayer(),
               Container(
                 margin: EdgeInsets.only(left: 18, top: 12),
                 child: Text(

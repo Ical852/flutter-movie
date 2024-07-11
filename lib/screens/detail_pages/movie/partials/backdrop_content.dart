@@ -54,7 +54,9 @@ class BackdropContent extends StatelessWidget {
               MiniButtonCustom(
                 width: 160,
                 height: 30,
-                title: "Watch Now", onPressed: (){}
+                title: "Watch Now", onPressed: (){
+                  launchURL(detail.homepage);
+                }
               )
             ],
           ),

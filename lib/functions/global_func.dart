@@ -3,6 +3,7 @@ import 'package:movlix/models/fetch_response.dart';
 import 'package:movlix/shared/constants.dart';
 import 'package:movlix/shared/text_styles.dart';
 import 'package:intl/intl.dart' as intl;
+import 'package:url_launcher/url_launcher.dart';
 
 dynamic nullChecker(dynamic check) {
   if (check == null) return null;
@@ -169,4 +170,16 @@ String getTitle(Results detail) {
   if (detail.title != null) return detail.title!;
   if (detail.name != null) return detail.name!;
   return "-";
+}
+
+void launchURL(String? url) async {
+  if (url != null) {
+    final Uri uri = Uri.parse(url);
+
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch $url';
+    }
+  }
 }

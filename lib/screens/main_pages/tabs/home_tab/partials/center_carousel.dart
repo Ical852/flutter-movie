@@ -9,6 +9,7 @@ class CenterCarousel extends StatelessWidget {
   String title;
   FetchResponse state;
   bool isTv;
+  
   CenterCarousel({
     super.key,
     required this.title,

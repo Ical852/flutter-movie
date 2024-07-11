@@ -18,6 +18,33 @@ class TopRatedCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Widget BackDropLayer() {
+      return Align(
+        alignment: Alignment.bottomCenter,
+        child: Container(
+          height: 150,
+          decoration: BoxDecoration(
+            borderRadius: BorderRadius.only(
+              bottomLeft: Radius.circular(12),
+              bottomRight: Radius.circular(12),
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+              Color(0xff000000).withOpacity(0.05),
+              Color(0xff000000).withOpacity(0.15),
+              Color(0xff000000).withOpacity(0.25),
+                Color(0xff000000).withOpacity(0.45),
+                Color(0xff000000).withOpacity(0.65),
+                Color(0xff000000).withOpacity(0.85),
+              ]
+            )
+          ),
+        ),
+      );
+    }
+
     return GestureDetector(
       onTap: () {
         Navigator.push(
@@ -40,30 +67,7 @@ class TopRatedCard extends StatelessWidget {
             child: Container(
               child: Stack(
                 children: [
-                  Align(
-                    alignment: Alignment.bottomCenter,
-                    child: Container(
-                      height: 150,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.only(
-                          bottomLeft: Radius.circular(12),
-                          bottomRight: Radius.circular(12),
-                        ),
-                        gradient: LinearGradient(
-                          begin: Alignment.topCenter,
-                          end: Alignment.bottomCenter,
-                          colors: [
-                          Color(0xff000000).withOpacity(0.05),
-                          Color(0xff000000).withOpacity(0.15),
-                          Color(0xff000000).withOpacity(0.25),
-                            Color(0xff000000).withOpacity(0.45),
-                            Color(0xff000000).withOpacity(0.65),
-                            Color(0xff000000).withOpacity(0.85),
-                          ]
-                        )
-                      ),
-                    ),
-                  ),
+                  BackDropLayer(),
                   Container(
                     margin: EdgeInsets.only(left: 16, bottom: 16),
                     child: Column(
